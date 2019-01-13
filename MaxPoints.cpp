@@ -12,6 +12,8 @@ typedef std::pair<int, int> PAIR;
 class Solution {
 private:
     int gcd(int a, int b){
+        if(a*b==0)
+            return 1;
         int x = std::max(a,b);
         int y = a+b-x;
         if (x % y == 0)
@@ -20,10 +22,10 @@ private:
             return gcd(y, x-y);
     }
     struct Point {
-        int x;
-        int y;
-        Point() : x(0), y(0) {}
-        Point(int a, int b) : x(a), y(b) {}
+             int x;
+             int y;
+             Point() : x(0), y(0) {}
+             Point(int a, int b) : x(a), y(b) {}
     };
     struct Comp { // comparator for key (slope) in map
         bool operator()(const Point& a, const Point& b)
@@ -32,6 +34,7 @@ private:
             return (int64_t)a.y*b.y>0? diff > 0 : diff < 0;
         }
     };
+
 public:
     int maxPoints(std::vector<Point>& points) {
         // count the slope between Pi and Pj (j>i)
